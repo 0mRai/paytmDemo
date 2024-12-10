@@ -1,8 +1,8 @@
 const express=require('express');
-const app=express();
 const router = express.Router();
 const zod=require('zod');
-const { User }=require('../db');
+const { User }=require("../db");
+const { Account }=require('../db');
 const jwt=require('jsonwebtoken');
 const JWT_SECRET = require('../config');
 const  { authMiddleware } = require("../middleware");
@@ -24,11 +24,11 @@ router.post('/signup', async(req, res)=>{
         })
     }
 
-    const user=User.findOne({
+    const user=await User.findOne({
         username: body.username
     })
 
-    if(user._id)
+    if(user)
     {
         return res.status(411).json({
             message: "Email already taken / Incorrect output"
@@ -36,6 +36,11 @@ router.post('/signup', async(req, res)=>{
     }
 
     const dbUser = await User.create(body);
+
+    await Account.create({
+        userId: dbUser._id,
+        balance: 1 + Math.random() * 10000
+    })
 
     // const dbUserId=dbUser._id;
     const token=jwt.sign({

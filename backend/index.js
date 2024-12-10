@@ -10,4 +10,4 @@ app.use(cors());
 // its like asking all the requests coming to '/api/v1' to please go to mainRouter where they will be handled
 app.use('/api/v1',mainRouter);
 
-app.listen(3000);
+app.listen(3001);

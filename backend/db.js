@@ -1,8 +1,8 @@
 // import mongoose from "mongoose";
 const mongoose= require("mongoose");
-const { number } = require("zod");
+// const { number } = require("zod");
 
-mongoose.connect('mongodb+srv://OmRai:Omrai78677@cluster1.adnkooh.mongodb.net/');
+mongoose.connect("mongodb://localhost:27017/");
 
 const userSchema=mongoose.Schema({
     username: String,
